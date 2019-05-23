@@ -14,6 +14,7 @@ import datetime
 import time
 import csv
 import matplotlib.pyplot as plt
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -53,6 +54,8 @@ class MyApp(QDialog):
     def initUI(self):
 
         tabs = QTabWidget()
+        
+        tabs.addTab(MainTab(), "StayHome-Main")
         tabs.addTab(FirstTab(), '혼잡해 나가지마')
         tabs.addTab(SecondTab(), '위험해 나가지마')
         tabs.addTab(ThirdTab(), '돈나가 나가지마')
@@ -71,8 +74,13 @@ class MyApp(QDialog):
         self.setLayout(vbox)
 
         self.setWindowTitle('StayHome')
-        self.setGeometry(50, 50, 1000, 800)
+        self.setGeometry(50, 50, 1050, 800)
+        
         self.show()
+        
+        
+        
+        
 class PandasModel(QtCore.QAbstractTableModel): 
     def __init__(self, df = pd.DataFrame(), parent=None):
         QtCore.QAbstractTableModel.__init__(self, parent=parent)
@@ -130,6 +138,64 @@ class PandasModel(QtCore.QAbstractTableModel):
         self._df.reset_index(inplace=True, drop=True)
         self.layoutChanged.emit()
 
+
+class MainTab(QWidget):
+
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+    def initUI(self):
+        self.nameLabel1 = QLabel(self)
+        self.nameLabel1.setText('나가기 귀찮은데...')
+        self.nameLabel1.setFont(QtGui.QFont("Times New Roman", 16, QtGui.QFont.Bold))
+        self.nameLabel1.move(700, 400)
+        
+        self.nameLabel2 = QLabel(self)
+        self.nameLabel2.setText('집에서 쉬고픈데...')
+        self.nameLabel2.setFont(QtGui.QFont("Arial", 16, QtGui.QFont.Bold))
+        self.nameLabel2.move(700, 425)
+        
+        self.nameLabel3 = QLabel(self)
+        self.nameLabel3.setText('이사람 싫은데...')
+        self.nameLabel3.setFont(QtGui.QFont("Arial", 16, QtGui.QFont.Bold))
+        self.nameLabel3.move(700, 450)
+        
+        self.nameLabel4 = QLabel(self)
+        self.nameLabel4.setText('그런 너를 위해 준비했어!')
+        self.nameLabel4.setFont(QtGui.QFont("Arial", 16, QtGui.QFont.Bold))
+        self.nameLabel4.move(700, 475)
+        
+        self.nameLabel5 = QLabel(self)
+        self.nameLabel5.setText('인싸들이여 오라!')
+        self.nameLabel5.setFont(QtGui.QFont("Arial", 16, QtGui.QFont.Bold))
+        self.nameLabel5.move(700, 500)
+        
+        self.nameLabel6 = QLabel(self)
+        self.nameLabel6.setText('The Stay Home!!')
+        self.nameLabel6.setFont(QtGui.QFont("Century Schoolbook", 23, QtGui.QFont.Bold))
+        self.nameLabel6.move(700, 555)
+        
+        self.nameLabel7 = QLabel(self)
+        self.nameLabel7.setText('Produced by. T4IR_JUAN / T4IR_JIN / T4IR_SUP')
+        self.nameLabel7.setFont(QtGui.QFont("Century Schoolbook", 8, QtGui.QFont.Bold))
+        self.nameLabel7.move(694, 680)
+
+
+
+        
+        self.labelA = QLabel(self)
+        self.labelB = QLabel(self)
+        self.labelC = QLabel(self)
+        self.labelA.setText('T4IR 클라우드 기반의 빅데이터 분석 전문가 과정 프로젝트')
+        self.labelA.setFont(QtGui.QFont("Century Schoolbook", 25, QtGui.QFont.Black))
+        self.labelB.setPixmap(QtGui.QPixmap('stayhome.png'))
+        self.labelC.setText('Copyright 2019. StayHome all rights reserved / 무단배포금지 ')
+        self.labelC.setFont(QtGui.QFont("Century Schoolbook", 9, QtGui.QFont.Bold))
+        self.labelA.move(80, 50)
+        self.labelB.move(80, 105)
+        self.labelC.move(610, 700)
+        
+        
 class FirstTab(QWidget):
 
     def __init__(self):
@@ -139,6 +205,7 @@ class FirstTab(QWidget):
     def initUI(self):
         # Year
         self.lbl = QLabel('연도', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 30)
 
         self.yy = QComboBox(self)
@@ -159,7 +226,8 @@ class FirstTab(QWidget):
 #         self.yy.activated[str].connect(self.onActivated)
         
         # Month
-        self.lbl = QLabel('월', self)
+        self.lbl = QLabel(' 월', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 65)
 
         self.mm = QComboBox(self)
@@ -180,7 +248,8 @@ class FirstTab(QWidget):
 #         self.mm.activated[str].connect(self.onActivated)
         
         # Day
-        self.lbl = QLabel('일', self)
+        self.lbl = QLabel(' 일', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 100)
 
         self.dd = QComboBox(self)
@@ -298,6 +367,7 @@ class SecondTab(QWidget):
 
         # Year
         self.lbl = QLabel('연도', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 30)
 
         self.yy = QComboBox(self)
@@ -318,7 +388,8 @@ class SecondTab(QWidget):
 #         self.yy.activated[str].connect(self.onActivated)
         
         # Month
-        self.lbl = QLabel('월', self)
+        self.lbl = QLabel(' 월', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 65)
 
         self.mm = QComboBox(self)
@@ -339,7 +410,8 @@ class SecondTab(QWidget):
 #         self.mm.activated[str].connect(self.onActivated)
         
         # Day
-        self.lbl = QLabel('일', self)
+        self.lbl = QLabel(' 일', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 100)
 
         self.dd = QComboBox(self)
@@ -378,6 +450,7 @@ class SecondTab(QWidget):
         
         # Hour
         self.lbl = QLabel('시간', self)
+        self.lbl.setFont(QtGui.QFont("Arial", 10, QtGui.QFont.Bold))
         self.lbl.move(15, 135)
 
         self.hh = QComboBox(self)
@@ -524,18 +597,20 @@ class ThirdTab(QWidget):
         self.nameLabel = QLabel(self)
     
         self.nameLabel.setText('출발지:')
+        self.nameLabel.setFont(QtGui.QFont("Arial", 14, QtGui.QFont.Bold))
         self.line = QLineEdit(self)
 
-        self.line.move(20, 45)
-        self.line.resize(60, 32)
+        self.line.move(20, 50)
+        self.line.resize(100, 32)
         self.nameLabel.move(20, 20)
         
         self.nameLabel2 = QLabel(self)
         self.nameLabel2.setText('도착지:')
+        self.nameLabel2.setFont(QtGui.QFont("Arial", 14, QtGui.QFont.Bold))
         self.line2 = QLineEdit(self)
         
-        self.line2.move(20, 105)
-        self.line2.resize(60, 32)
+        self.line2.move(20, 110)
+        self.line2.resize(100, 32)
         self.nameLabel2.move(20, 80)
         
         
@@ -567,10 +642,10 @@ class ThirdTab(QWidget):
         print('도착지: ' + self.line2.text())
         x= self.line.text()
         y = self.line2.text() 
-        f = open("C:\python/출발지.txt", 'w')
+        f = open("C:\python/출발지.txt", 'w',encoding='utf-8')
         f.write(x)
         f.close()
-        f = open("C:\python/도착지.txt", 'w')
+        f = open("C:\python/도착지.txt", 'w',encoding='utf-8')
         f.write(y)
         f.close()
         
@@ -580,10 +655,10 @@ class ThirdTab(QWidget):
             if resp.status_code == 200:
                 _html = resp.text
                 return _html
-        f1 = open("C:\python/출발지.txt", 'r')
+        f1 = open("C:\python/출발지.txt", 'r',encoding='utf-8')
         location = f1.readline()
         f1.close()
-        f2 = open("C:\python/도착지.txt", 'r')
+        f2 = open("C:\python/도착지.txt", 'r',encoding='utf-8')
         location2 = f2.readline()
         f2.close()
         print("출발지:"+location)
@@ -761,7 +836,7 @@ class ThirdTab(QWidget):
         # 표 정리
         df7=pd.concat([Dataframe,price])
         Total_money=(df7.values[2,0]+(df7.values[5,0]+df7.values[6,0])/2)*2
-        df8 = pd.DataFrame([Total_money],index=["예상 왕복 비용"],columns=["안내 내용"])
+        df8 = pd.DataFrame([Total_money],index=["예상 왕복 비용(원)"],columns=["안내 내용"])
         Final_Chart=pd.concat([df7,df8])
         pd.options.display.float_format='{:.2f}'.format
         table = Final_Chart
@@ -1055,7 +1130,8 @@ class FourthTab(QWidget):
         
         self.nameLabel = QLabel(self)
     
-        self.nameLabel.setText('사고싶은물품:')
+        self.nameLabel.setText('구매물품:')
+        self.nameLabel.setFont(QtGui.QFont("Arial", 14, QtGui.QFont.Bold))
         self.line = QLineEdit(self)
 
         self.line.move(20, 120)
@@ -1063,7 +1139,8 @@ class FourthTab(QWidget):
         self.nameLabel.move(20, 85)
         
         self.nameLabel2 = QLabel(self)
-        self.nameLabel2.setText('목표금액설정:')
+        self.nameLabel2.setText('목표금액:')
+        self.nameLabel2.setFont(QtGui.QFont("Arial", 14, QtGui.QFont.Bold))
         self.line2 = QLineEdit(self)
         
         self.line2.move(20, 475)
@@ -1100,6 +1177,16 @@ class FourthTab(QWidget):
         self.pandasTv2 = QtWidgets.QTableView(self)
         hLayout2.addWidget(self.pandasTv2)
         vLayout.addLayout(hLayout2)
+        
+        self.fig = plt.Figure()
+        self.canvas = FigureCanvas(self.fig)
+        hLayout.addWidget(self.canvas)
+        vLayout.addLayout(hLayout)
+        
+        self.fig2 = plt.Figure()
+        self.canvas2 = FigureCanvas(self.fig2)
+        hLayout2.addWidget(self.canvas2)
+        vLayout2.addLayout(hLayout2)
     
     def clickMethod(self):
         x= self.line.text()
@@ -1140,7 +1227,7 @@ class FourthTab(QWidget):
 
         remaning = product_price-val
         pie2 = ([product_price, val,remaning])
-        pie_data2 = pd.DataFrame(pie2, columns=['내가원하는 목표치 까지!'], index=["목표상품금액", "벌써 이만큼이나?","남은금액"])
+        pie_data2 = pd.DataFrame(pie2, columns=['얼마안남았어!'], index=["목표상품금액", "벌써 이만큼이나?","남은금액"])
         pd.options.display.float_format='{:.2f}'.format
         pie_data2.to_csv("목표상품.csv", sep=',', encoding='cp949')
     
@@ -1151,6 +1238,35 @@ class FourthTab(QWidget):
         self.pandasTv.setModel(model)
         self.pandasTv.resizeColumnsToContents()
         self.pandasTv.update()
+        
+        import matplotlib.font_manager as fm
+        from matplotlib import font_manager, rc
+        font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
+        rc('font', family=font_name)
+        
+        product_price = df.values[0,0]
+        table = pd.read_csv("여행비용.csv", encoding='cp949',engine='python')
+        val=round(float(table.values[7,1]))
+        percentage = (val/product_price)*100
+        resident_val = 100-percentage
+        
+        
+        ax = self.fig.add_subplot(111)
+        # Pie chart
+        labels = ['남은금액은!','모을수 있어!']
+        sizes = [resident_val, percentage]
+        # only "explode" the 2nd slice (i.e. 'Hogs')
+        explode = (0.1, 0)  
+        ax.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+                shadow=True, startangle=150)
+        # Equal aspect ratio ensures that pie is drawn as a circle
+        ax.axis('equal')  
+        self.fig.tight_layout()
+        self.canvas.draw()
+        self.canvas.show()
+        
+        
+        
     
     def clickMethod2(self):
         money = self.line2.text()
@@ -1160,7 +1276,8 @@ class FourthTab(QWidget):
         remaning2 = float(money)-val2
         pie = ([money, val2,remaning2])
         
-        pie_data = pd.DataFrame(pie, columns=['내가원하는 목표치 까지!'], index=["목표금액", "벌써 이만큼이나?","남은금액"])
+        
+        pie_data = pd.DataFrame(pie, columns=['얼마안남았어!'], index=["목표금액", "벌써 이만큼이나?","남은금액"])
         pd.options.display.float_format='{:.2f}'.format
         pie_data.to_csv("목표금액.csv", sep=',', encoding='cp949')
     
@@ -1171,6 +1288,31 @@ class FourthTab(QWidget):
         self.pandasTv2.setModel(model)
         self.pandasTv2.resizeColumnsToContents()
         self.pandasTv2.update()
+        
+        import matplotlib.font_manager as fm
+        from matplotlib import font_manager, rc
+        font_name = font_manager.FontProperties(fname="c:/Windows/Fonts/malgun.ttf").get_name()
+        rc('font', family=font_name)
+        
+        money = int(df.values[0,0])
+        table = pd.read_csv("여행비용.csv", encoding='cp949',engine='python')
+        val=round(float(table.values[7,1]))
+        percentage2 = (val/money)*100
+        resident_val2 = 100-percentage2
+        
+        ax2 = self.fig2.add_subplot(111)
+        # Pie chart
+        labels2 = ['남은금액은!','모을수 있어!']
+        sizes2 = [resident_val2, percentage2]
+        # only "explode" the 2nd slice (i.e. 'Hogs')
+        explode2 = (0.1, 0)  
+        ax2.pie(sizes2, explode=explode2, labels=labels2, autopct='%1.1f%%',
+                shadow=True, startangle=150)
+        # Equal aspect ratio ensures that pie is drawn as a circle
+        ax2.axis('equal')
+        self.fig2.tight_layout()
+        self.canvas2.draw()
+        self.canvas2.show()
         
         
 
